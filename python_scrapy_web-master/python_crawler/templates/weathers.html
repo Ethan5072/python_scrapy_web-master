@@ -1,0 +1,39 @@
+{%extends "index.html" %}
+{% block mainbody %}
+<form class="navbar-form navbar-right" action="/weathersearch" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {% if history %}
+        <input type="text" placeholder="{{history}}" class="form-control" name="val">
+        {% else %}
+        <input type="text" placeholder="输入搜索内容" class="form-control" name="val">
+        {% endif %}
+    </div>
+    <button type="submit" class="btn btn-success">提 交</button>
+</form>
+<table class="table table-striped">
+    <caption><h2>各地天气</h2></caption>
+    <thead>
+    <tr>
+        <th>&nbsp;所在位置&nbsp;</th>
+        <th>&nbsp;日期&nbsp;</th>
+        <th>&nbsp;风级&nbsp;</th>
+        <th>&nbsp;最低温度&nbsp;</th>
+        <th>&nbsp;最高温度&nbsp;</th>
+        <th>&nbsp;天气&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for weather in weathers %}
+    <tr>
+        <td>&nbsp;{{weather.city}}&nbsp;</td>
+        <td>&nbsp;{{weather.dates}}&nbsp;</td>
+        <td>&nbsp;{{weather.winL}}&nbsp;</td>
+        <td>&nbsp;{{weather.temperatureLow}}&nbsp;</td>
+        <td>&nbsp;{{weather.temperatureHigh}}&nbsp;</td>
+        <td>&nbsp;{{weather.weather}}&nbsp;</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
